@@ -1,0 +1,51 @@
+﻿@page
+@model EmailModel
+@{
+    ViewData["Title"] = "Manage Email";
+    ViewData["ActivePage"] = ManageNavPages.Email;
+}
+
+
+<partial name="_StatusMessage" for="StatusMessage" />
+
+<div class="tab-content">
+    <div class="tab-pane fade active show d-flex justify-content-center" role="tabpanel">
+        <div class="col-8">
+            <div class="sign__wrap">
+                <form id="email-form" class="sign__form sign__form--profile sign__form--first" method="post">
+                    <h3 class="sign__text">@ViewData["Title"]</h3>
+                    <div asp-validation-summary="All" class="text-danger invalid-message"></div>
+                    @if (Model.IsEmailConfirmed)
+                    {
+                        <div class="sign__group input-group col-6">
+                            <label asp-for="Email" class="form-label sign__text"></label>
+                            <input asp-for="Email" class="sign__input" disabled />
+                            <div class="sign__text">
+                                <span class="h-100 input-group-text font-weight-bold sign__text text-success">Email is confirmed!</span>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="sign__group col-6">
+                            <label asp-for="Email" class="form-label sign__text"></label>
+                            <input asp-for="Email" class="sign__input" disabled />
+                            <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link sign__btn">Send verification email</button>
+                        </div>
+                    }
+                    <div class="sign__group col-6">
+                        <label asp-for="Input.NewEmail" class="form-label sign__text"></label>
+                        <input asp-for="Input.NewEmail" class="sign__input" autocomplete="email" aria-required="true" />
+                        <span asp-validation-for="Input.NewEmail" class="text-danger invalid-message"></span>
+                    </div>
+                    <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="sign__btn">Change email</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

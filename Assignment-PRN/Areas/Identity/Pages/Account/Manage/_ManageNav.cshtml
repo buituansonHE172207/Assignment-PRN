@@ -1,0 +1,54 @@
+﻿@inject SignInManager<User> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+    var user = await UserManager.GetUserAsync(User);
+}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="profile">
+                    <div class="profile__user">
+                        <div class="profile__avatar">
+                            <img src="img/avatar.svg" alt="">
+                        </div>
+                        <div class="profile__meta">
+                            <h3>@User.Identity?.Name</h3>
+                            <span>FlixTV ID: XXXXXXX</span>
+                        </div>
+                    </div>
+
+                    <!-- tabs nav -->
+                    <ul class="nav nav-tabs profile__tabs" id="profile__tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" role="tab" aria-controls="profile" aria-selected="true" asp-page="./Index">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" role="tab" aria-controls="email" aria-selected="false" asp-page="./Email">Email</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" role="tab" aria-controls="change-password" aria-selected="false" asp-page="./ChangePassword">Password</a>
+                        </li>
+                        @if (hasExternalLogins)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" role="tab" aria-controls="external-logins" aria-selected="false" asp-page="./ExternalLogins">External logins</a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" role="tab" aria-controls="two-factor" aria-selected="false" asp-page="./TwoFactorAuthentication">Two-factor authentication</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" role="tab" aria-controls="personal-data" aria-selected="false" asp-page="./PersonalData">Personal data</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" role="tab" aria-controls="favorites" aria-selected="false" asp-page="./Favorites">Favorites</a>
+
+
+                        </li>
+                    </ul>
+                    <!-- end tabs nav -->
+                </div>
+            </div>
+        </div>
+    </div>

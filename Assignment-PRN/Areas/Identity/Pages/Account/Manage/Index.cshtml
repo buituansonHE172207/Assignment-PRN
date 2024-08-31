@@ -1,0 +1,33 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<div class="tab-content">
+    <div class="tab-pane fade active show d-flex justify-content-center" role="tabpanel">
+        <div class="col-8">
+            <div class="sign__wrap">
+                <form id="profile-form" class="sign__form sign__form--profile sign__form--first" method="post">
+                    <h3 class="sign__text">@ViewData["Title"]</h3>
+                    <div asp-validation-summary="ModelOnly" class="text-danger invalid-message"></div>
+                    <div class="sign__group col-6">
+                        <label asp-for="Username" class="form-label sign__text"></label>
+                        <input asp-for="Username" class="sign__input" disabled />
+                    </div>
+                    <div class="sign__group col-6">
+                        <label asp-for="Input.PhoneNumber" class="form-label sign__text"></label>
+                        <input asp-for="Input.PhoneNumber" class="sign__input" />
+                        <span asp-validation-for="Input.PhoneNumber" class="text-danger invalid-message"></span>
+                    </div>
+                    <button id="update-profile-button" type="submit" class="sign__btn">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
